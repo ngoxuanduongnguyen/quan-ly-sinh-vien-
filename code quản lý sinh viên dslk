@@ -1,0 +1,244 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+struct Student {
+ string name,sex,id;
+ double gpa;
+	
+};
+struct SV{
+ Student s;
+ SV *next;
+};
+typedef struct SV* sv;
+sv createNode(){
+ Student s;
+ cout<<"Nhap thong tin sinh vien \n";
+ cout<<"Nhap ho ten cua sinh vien: \n ";
+ cin.ignore();
+ getline(cin,s.name);
+ cout<<"Nhap vao MSSV: \n";
+ cin>>s.id;
+ cout<<"Nhap gioi tinh sinh vien: \n";
+ cin>>s.sex;
+ cout<<"Nhap diem cua sinh vien: \n";
+ cin>>s.gpa;
+ sv t= new SV();
+ t->s= s;
+ t->next=NULL;
+ return t;
+ }
+bool empty(sv a){
+ return a==NULL;
+}
+int Size(sv a){
+ int dem=0;
+ while(a!=NULL){
+  a=a->next;
+  dem=dem+1;
+ }
+ return dem;
+}
+void insertFirst(sv &a){
+ sv t= createNode();
+ if(a==NULL){
+  a=t;
+ }
+ else{
+  t->next=a;
+  a=t;
+ }
+}
+void insertLast(sv &a){
+ sv t = createNode();
+ if(a==NULL){
+  a=t;
+ }
+ else{
+  sv p=a;
+  while(p->next!=NULL){
+  p=p->next; 
+ }
+ p->next=t;
+   }
+}
+void insertMiddle(sv &a, int pos){
+ int n= Size(a);
+ if(pos<=0||pos>n+1){
+  cout<<"Vi tri chen khong hop le !\n ";
+  return;
+ }
+ else if(pos==1){
+  insertFirst( a );
+  return;
+ }
+ else if(pos==n+1){
+  insertLast(a);
+  return;
+ }
+ else{
+  sv p=a;
+  for(int i=1;i<pos-1;i++){
+   p=p->next;
+  }
+  sv t= createNode();
+  t->next=p->next;
+  p->next=t;
+ }
+}
+void removeFirst(sv &a){
+ if(a==NULL){
+  return;
+ }
+    else{
+  a=a->next;
+ }
+}
+void removeLast(sv &a){
+ if(a==NULL){
+  return;
+ }
+  sv truoc=NULL,sau=a;
+  while(sau->next!=NULL){
+   truoc=sau;
+   sau=sau->next;
+  }
+ if (truoc->next=NULL){
+  a=NULL;
+ }
+ else{
+  truoc->next=NULL;
+ }
+}
+void removeMiddle(sv &a, int pos ){
+ int n = Size(a);
+ if(pos<=0||pos>n){
+  cout<<"Vi tri xoa khong hop le !\n ";
+  return;
+ }
+ else if(pos==1 ){
+  removeFirst(a);
+  return;
+ }
+ else if(pos==n){
+  removeLast(a);
+  return;
+ }
+  sv truoc=NULL,sau= a;
+  for(int i=1;i<pos;i++){
+   truoc=sau;
+   sau=sau->next;
+  }
+  if(truoc==NULL){
+   return;
+  }
+  else{
+  truoc->next=sau->next;
+     } 
+}
+void print(Student s){
+ cout<<"___________________RESULT____________________\n";
+ cout<<"MSSV: "<<s.id<<endl;
+ cout<<"Ho va ten: "<<s.name<<endl;
+ cout<<"Gioi tinh: "<<s.sex<<endl;
+ cout<<"Diem: "<<fixed<<setprecision(2)<<s.gpa<<endl;
+ cout<<"______________________________________________\n";
+}
+void printList (sv a){
+ cout<<"DANH SACH SINH VIEN: \n";
+ while(a!=NULL){
+  print(a->s);
+  a=a->next;
+ }
+ cout<<endl;
+}
+void Sapxep(sv &a){
+ for(sv p=a;p->next!=NULL;p=p->next){
+  sv min=p;
+  for(sv q=p->next;q!=NULL;q=q->next){
+   if(q->s.gpa<min->s.gpa){
+    min=q;
+   }  
+  }
+  Student t= min->s;
+  min->s=p->s;
+  p->s=t;
+ }
+}
+sv Search(sv a,string d)
+{
+  sv p=a; 
+  while(p!=NULL)
+  {
+    if(p->s.id==d) 
+      break; 
+    p=p->next;
+  }
+  return p;
+  }
+int main(){
+ sv head=NULL;
+ while(1){
+  cout<<"\t\t\t\t\t**<3----------^_MENU_^----------------<3 **\n";
+  cout<<"\t\t\t\t\t**1.Chen phan tu vao dau danh sach       **\n";
+  cout<<"\t\t\t\t\t**2.Chen phan tu vao cuoi danh sach      **\n";
+  cout<<"\t\t\t\t\t**3.Chen phan tu vao giua danh sach      **\n";
+  cout<<"\t\t\t\t\t**4.Xoa phan tu dau danh sach            **\n";
+  cout<<"\t\t\t\t\t**5.Xoa phan tu cuoi danh sach           **\n";
+  cout<<"\t\t\t\t\t**6.Xoa phan tu giua danh sach           **\n";
+  cout<<"\t\t\t\t\t**7.Sap xep cac sinh vien theo diem      **\n";
+  cout<<"\t\t\t\t\t**8.Hien thi ra man hinh cac sinh vien   **\n";
+  cout<<"\t\t\t\t\t**9.Tim sinh vien theo MSSV              **\n";
+  cout<<"\t\t\t\t\t**0.Thoat chuong trinh !                 **\n";
+  cout<<"\t\t\t\t\t*******************************************\n";
+  cout<<"NHAP LUA CHON CUA BAN:";
+  int lc;
+  cin>>lc;
+  if(lc==1){
+   insertFirst(head);
+  }
+  else if(lc==2){
+   insertLast(head);
+  }
+  else if(lc==3){
+   int pos;
+   cout<<"Mhap vi tri can chen: ";
+   cin>>pos;
+   insertMiddle(head, pos);
+  }
+  else if(lc==4){
+   removeFirst(head);
+   }
+   else if(lc==5){
+    removeLast(head);
+   }
+   else if(lc==6){
+    int pos;
+    cout<<"Nhap vi tri can xoa:";
+    cin>>pos;
+    removeMiddle(head,pos);
+   }
+   else if(lc==7){
+    Sapxep(head);
+    }
+   else if (lc==8){
+    printList(head);
+   }
+   else if(lc==9){
+    string d;
+  cout<<"\n NHAP MSSV MUON TIM: ";
+  cin>>d;
+  sv p = Search(head, d);
+  if(p == NULL){
+    cout<<"!!! KHONG TIM THAY SINH VIEN !!! \n";
+      }
+  else{
+   cout<<"SINH VIEN TIM DUOC LA: ";
+    print(p->s);
+  }
+   }
+   else if(lc==0){
+   break;
+   } 
+ }
+}
