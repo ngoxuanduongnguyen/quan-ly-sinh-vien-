@@ -14,14 +14,14 @@ typedef struct SV* sv;
 sv createNode(){
  Student s;
  cout<<"Nhap thong tin sinh vien \n";
- cout<<"Nhap ho ten cua sinh vien: \n ";
+ cout<<"Nhap ho ten cua sinh vien: ";
  cin.ignore();
  getline(cin,s.name);
- cout<<"Nhap vao MSSV: \n";
+ cout<<"NhapMSSV: ";
  cin>>s.id;
- cout<<"Nhap gioi tinh sinh vien: \n";
+ cout<<"Nhap gioi tinh sinh vien: ";
  cin>>s.sex;
- cout<<"Nhap diem cua sinh vien: \n";
+ cout<<"Nhap diem cua sinh vien: ";
  cin>>s.gpa;
  sv t= new SV();
  t->s= s;
@@ -65,7 +65,7 @@ void insertLast(sv &a){
 void insertMiddle(sv &a, int pos){
  int n= Size(a);
  if(pos<=0||pos>n+1){
-  cout<<"Vi tri chen khong hop le !\n ";
+  cout<<"Vi tri chen khong hop le \n ";
   return;
  }
  else if(pos==1){
@@ -113,7 +113,7 @@ void removeLast(sv &a){
 void removeMiddle(sv &a, int pos ){
  int n = Size(a);
  if(pos<=0||pos>n){
-  cout<<"Vi tri xoa khong hop le !\n ";
+  cout<<"Vi tri xoa khong hop le \n ";
   return;
  }
  else if(pos==1 ){
@@ -137,15 +137,14 @@ void removeMiddle(sv &a, int pos ){
      } 
 }
 void print(Student s){
- cout<<"___________________RESULT____________________\n";
+ cout<<"Ket qua\n";
  cout<<"MSSV: "<<s.id<<endl;
  cout<<"Ho va ten: "<<s.name<<endl;
  cout<<"Gioi tinh: "<<s.sex<<endl;
  cout<<"Diem: "<<fixed<<setprecision(2)<<s.gpa<<endl;
- cout<<"______________________________________________\n";
 }
 void printList (sv a){
- cout<<"DANH SACH SINH VIEN: \n";
+ cout<<"Danh sach sinh vien: \n";
  while(a!=NULL){
   print(a->s);
   a=a->next;
@@ -179,19 +178,20 @@ sv Search(sv a,string d)
 int main(){
  sv head=NULL;
  while(1){
-  cout<<"\t\t\t\t\t**<3----------^_MENU_^----------------<3 **\n";
-  cout<<"\t\t\t\t\t**1.Chen phan tu vao dau danh sach       **\n";
-  cout<<"\t\t\t\t\t**2.Chen phan tu vao cuoi danh sach      **\n";
-  cout<<"\t\t\t\t\t**3.Chen phan tu vao giua danh sach      **\n";
-  cout<<"\t\t\t\t\t**4.Xoa phan tu dau danh sach            **\n";
-  cout<<"\t\t\t\t\t**5.Xoa phan tu cuoi danh sach           **\n";
-  cout<<"\t\t\t\t\t**6.Xoa phan tu giua danh sach           **\n";
-  cout<<"\t\t\t\t\t**7.Sap xep cac sinh vien theo diem      **\n";
-  cout<<"\t\t\t\t\t**8.Hien thi ra man hinh cac sinh vien   **\n";
-  cout<<"\t\t\t\t\t**9.Tim sinh vien theo MSSV              **\n";
-  cout<<"\t\t\t\t\t**0.Thoat chuong trinh !                 **\n";
-  cout<<"\t\t\t\t\t*******************************************\n";
-  cout<<"NHAP LUA CHON CUA BAN:";
+cout<<"\t\t\t\t\t _______________________________________\n";	
+cout<<"\t\t\t\t\t|                 MENU                  |\n";
+cout<<"\t\t\t\t\t|1. Them sinh vien vao dau danh sach    |\n";
+cout<<"\t\t\t\t\t|2. Them sinh vien vao cuoi danh sach   |\n";
+cout<<"\t\t\t\t\t|3. Them sinh vien vao giua danh sach   |\n";
+cout<<"\t\t\t\t\t|4. Xoa sinh vien dau danh sach         |\n";
+cout<<"\t\t\t\t\t|5. Xoa sinh vien cuoi danh sach        |\n";
+cout<<"\t\t\t\t\t|6. Xoa sinh vien giua danh sach        |\n";
+cout<<"\t\t\t\t\t|7. Sap xep cac sinh vien theo diem     |\n";
+cout<<"\t\t\t\t\t|8. Hien thi ra man hinh cac sinh vien  |\n";
+cout<<"\t\t\t\t\t|9. Tim sinh vien theo MSSV             |\n";
+cout<<"\t\t\t\t\t|0. Thoat chuong trinh.                 |\n";
+cout<<"\t\t\t\t\t|_______________________________________|\n";
+cout<<"Nhap lua chon:";
   int lc;
   cin>>lc;
   if(lc==1){
@@ -202,7 +202,7 @@ int main(){
   }
   else if(lc==3){
    int pos;
-   cout<<"Mhap vi tri can chen: ";
+   cout<<"Nhap vi tri can chen: \n";
    cin>>pos;
    insertMiddle(head, pos);
   }
@@ -214,7 +214,7 @@ int main(){
    }
    else if(lc==6){
     int pos;
-    cout<<"Nhap vi tri can xoa:";
+    cout<<"Nhap vi tri can xoa: \n";
     cin>>pos;
     removeMiddle(head,pos);
    }
@@ -226,14 +226,14 @@ int main(){
    }
    else if(lc==9){
     string d;
-  cout<<"\n NHAP MSSV MUON TIM: ";
+  cout<<"\n Nhap sinh vien muon tim: ";
   cin>>d;
   sv p = Search(head, d);
   if(p == NULL){
-    cout<<"!!! KHONG TIM THAY SINH VIEN !!! \n";
+    cout<<"Khong tim thay sinh vien \n";
       }
   else{
-   cout<<"SINH VIEN TIM DUOC LA: ";
+   cout<<"Sinh vien tim duoc: \n";
     print(p->s);
   }
    }
